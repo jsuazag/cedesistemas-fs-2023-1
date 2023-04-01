@@ -1,11 +1,16 @@
+import { IoMenu } from "react-icons/io5";
+import { MenuIconContainer, TopbarContainer } from "./styles";
+
 export const Topbar = () => {
 
   return (
-    <header>
-      <div>icono menú</div>
+    <TopbarContainer>
+      <MenuIconContainer>
+        <IoMenu />
+      </MenuIconContainer>
       <div>
-        <img width="100px" alt="logo" src="assets/logo.png" />
+        <img width="170px" alt="logo" src="assets/logo.png" />
       </div>
-    </header>
+    </TopbarContainer>
   )
 }

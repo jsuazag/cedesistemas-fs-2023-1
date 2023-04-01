@@ -1,4 +1,6 @@
 import {Link} from 'react-router-dom';
+import { MenuCloseWrapper, MenuContainer, MenuItemsWrapper } from './styles';
+import { IoClose } from 'react-icons/io5';
 
 const OptionsMenu = [
   {
@@ -18,15 +20,18 @@ const OptionsMenu = [
 export const Menu = () => {
 
   return (
-    <section>
-      <ul>
+    <MenuContainer>
+      <MenuCloseWrapper>
+        <IoClose />
+      </MenuCloseWrapper>
+      <MenuItemsWrapper>
         {
           OptionsMenu.map((item, index) => (
               <Link key={index} to={item.path}><li>{item.name}</li></Link>
             )
           )
         }
-      </ul>
-    </section>
+      </MenuItemsWrapper>
+    </MenuContainer>
   )
 }
