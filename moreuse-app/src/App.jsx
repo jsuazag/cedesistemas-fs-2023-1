@@ -1,5 +1,8 @@
+import { RouterProvider } from "react-router-dom";
+import { router } from "./Routes/Router";
+
 export const App = () => {
   return (
-    <h1>moreuse</h1>
+    <RouterProvider router={router} />
   )
 }
