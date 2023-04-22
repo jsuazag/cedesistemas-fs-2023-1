@@ -16,6 +16,10 @@ const OptionsMenu = [
   {
     name: "Mis prendas",
     path: "/my-clothes"
+  },
+  {
+    name: "Iniciar Sesión",
+    path: "/login"
   }
 ]
 

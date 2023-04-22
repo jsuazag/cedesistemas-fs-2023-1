@@ -14,8 +14,12 @@ export const MenuContextStore = (props) => {
     setMenuState({ ...menuState, isOpen: !menuState.isOpen });
   }
 
+  const onCloseMenu = () => {
+    setMenuState({ ...menuState, isOpen: false });
+  }
+
   return (
-    <MenuContext.Provider value={{ menuState, onChangeOpenCloseMenu }}>
+    <MenuContext.Provider value={{ menuState, onChangeOpenCloseMenu, onCloseMenu }}>
       { props.children }
     </MenuContext.Provider>
   )

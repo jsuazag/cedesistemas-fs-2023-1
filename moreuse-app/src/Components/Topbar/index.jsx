@@ -17,11 +17,8 @@ export const Topbar = () => {
         <IoMenu />
       </MenuIconContainer>
       <div>
-        <img width="170px" alt="logo" src="assets/logo.png" />
+        <img width="170px" alt="logo" src="/assets/logo.png" />
       </div>
-      <p>
-        { menuState.isOpen ? "abierto" : "cerrado" }
-      </p>
     </TopbarContainer>
   )
 }
