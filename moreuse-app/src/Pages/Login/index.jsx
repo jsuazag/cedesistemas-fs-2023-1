@@ -4,6 +4,7 @@ import { FormContainer, FormControl } from '../../globalStyles';
 import { Link } from 'react-router-dom';
 import { SignupContent } from './styles';
 import { useForm } from 'react-hook-form';
+import { emailExpRegular } from '../../Constants';
 
 const Login = () => {
 
@@ -16,11 +17,11 @@ const Login = () => {
   return (
     <Page title="Ingresar">
       <FormContainer>
-        <form onSubmit={handleSubmit(onSubmitLogin)}>
+        <form onSubmit={handleSubmit(onSubmitLogin)} noValidate>
           <FormControl>
             <label>Correo electrónico</label>
-            <input type='text' {...register("emailAddress",
-                { required: true, pattern: /^[A-Za-z]+[A-Za-z0-9]*@[A-Za-z0-9]+\.[A-Za-z0-9]+/i }
+            <input type='email' {...register("emailAddress",
+                { required: true, pattern: emailExpRegular }
             )} />
             { errors.emailAddress?.type === 'required' && <span>Campo requerido</span> }
             { errors.emailAddress?.type === 'pattern' && <span>Debes ingresar un correo válido</span> }

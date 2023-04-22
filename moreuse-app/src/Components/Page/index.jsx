@@ -12,6 +12,7 @@ export const Page = (props) => {
 
   useEffect (() => {
     // única vez al inicio del componente
+    console.log('hide');
     hideMenu();
   }, []);
 
