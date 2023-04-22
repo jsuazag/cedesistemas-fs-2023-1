@@ -1,6 +1,8 @@
 import {Link} from 'react-router-dom';
 import { MenuCloseWrapper, MenuContainer, MenuItemsWrapper } from './styles';
 import { IoClose } from 'react-icons/io5';
+import { useContext } from 'react';
+import { MenuContext } from '../../Contexts/MenuContext';
 
 const OptionsMenu = [
   {
@@ -19,9 +21,11 @@ const OptionsMenu = [
 
 export const Menu = () => {
 
+  const {menuState, onChangeOpenCloseMenu} = useContext(MenuContext);
+
   return (
-    <MenuContainer>
-      <MenuCloseWrapper>
+    <MenuContainer isShown={ menuState.isOpen }>
+      <MenuCloseWrapper onClick={onChangeOpenCloseMenu}>
         <IoClose />
       </MenuCloseWrapper>
       <MenuItemsWrapper>
