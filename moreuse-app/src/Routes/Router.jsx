@@ -4,6 +4,7 @@ import { LazyLoading } from '../Components/LazyLoading';
 
 const Home = React.lazy(() => import('../Pages/Home') );
 const WearDetail = React.lazy(() => import('../Pages/WearDetail') );
+const Profile = React.lazy(() => import('../Pages/Profile') );
 const Login = React.lazy(() => import('../Pages/Login').then((module) => {
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -34,6 +35,14 @@ export const router = createBrowserRouter([
     element: (
       <Suspense fallback={<LazyLoading />}>
         <Login />
+      </Suspense>
+    )
+  },
+  {
+    path: "/profile",
+    element: (
+      <Suspense fallback={<LazyLoading />}>
+        <Profile />
       </Suspense>
     )
   }

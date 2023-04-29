@@ -22,6 +22,10 @@ export const GlobalStyle = createGlobalStyle`
   }
 `;
 
+export const Content = styled.section`
+  margin: 10px 20px;
+`;
+
 export const FormContainer = styled.section`
   display: flex;
   justify-content: center;
