@@ -3,29 +3,43 @@ import { MenuCloseWrapper, MenuContainer, MenuItemsWrapper } from './styles';
 import { IoClose } from 'react-icons/io5';
 import { useContext } from 'react';
 import { MenuContext } from '../../Contexts/MenuContext';
+import { UserContext } from '../../Contexts/UserContext';
 
 const OptionsMenu = [
   {
     name: "Inicio",
-    path: "/"
+    path: "/",
+  },
+  {
+    name: "Inicio",
+    path: "/",
+    authRequired: true
   },
   {
     name: "Perfil",
-    path: "/profile"
+    path: "/profile",
+    authRequired: true
   },
   {
     name: "Mis prendas",
-    path: "/my-clothes"
+    path: "/my-clothes",
+    authRequired: true
   },
   {
     name: "Iniciar Sesión",
     path: "/login"
+  },
+  {
+    name: "Cerrar Sesión",
+    path: "/logout",
+    authRequired: true
   }
 ]
 
 export const Menu = () => {
 
   const {menuState, onChangeOpenCloseMenu} = useContext(MenuContext);
+  const {user} = useContext(UserContext);
 
   return (
     <MenuContainer isShown={ menuState.isOpen }>
@@ -34,9 +48,14 @@ export const Menu = () => {
       </MenuCloseWrapper>
       <MenuItemsWrapper>
         {
-          OptionsMenu.map((item, index) => (
-              <Link key={index} to={item.path}><li>{item.name}</li></Link>
-            )
+          OptionsMenu.map((item, index) => {
+              if (user.isAuth && item.authRequired) {
+                return <Link key={index} to={item.path}><li>{item.name}</li></Link>
+              }
+              if (!user.isAuth && !item.authRequired) {
+                return <Link key={index} to={item.path}><li>{item.name}</li></Link>
+              }
+            }
           )
         }
       </MenuItemsWrapper>
