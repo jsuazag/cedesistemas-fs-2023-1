@@ -42,7 +42,7 @@ export const FormControl = styled.div`
     display: block;
     text-align: center;
   }
-  input {
+  input, textarea, select {
     width: 100%;
     font-family: "Montserrat";
     font-size: 1.1em;
@@ -50,6 +50,9 @@ export const FormControl = styled.div`
     padding: 10px 12px;
     text-align: center;
     border-radius: 4px;
+  }
+  textarea {
+    text-align: left !important;
   }
   span {
     color: red;
