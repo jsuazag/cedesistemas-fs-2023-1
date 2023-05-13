@@ -7,7 +7,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // modules
-app.use('/auth', require('./src/auth/auth.routes'));
+app.use('/auth', require('./src/modules/auth/auth.routes'));
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`)
