@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const errorHandler = require('../../utils/errorHandler');
 const Clothe = require('./models/clothe.model');
 const dictErrors = require('./utils/dict.errors');
@@ -46,8 +47,12 @@ const getAll = async (filter) => {
 
 const getDetail = async (clotheId) => {
   try {
+    if (!mongoose.Types.ObjectId.isValid(clotheId)){
+      throw errorHandler(dictErrors.CLOTHE_NOT_FOUND);
+    }
     const clothe = await Clothe.findById(clotheId);
-    return clothe || errorHandler(dictErrors.CLOTHE_NOT_FOUND);
+    if (clothe) return clothe;
+    throw errorHandler(dictErrors.CLOTHE_NOT_FOUND);
   } catch (error) {
     throw error.handled ? error : errorHandler(dictErrors.SERVER_ERROR);
   }
