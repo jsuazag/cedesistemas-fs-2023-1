@@ -1,6 +1,7 @@
 const errorHandler = require('../../utils/errorHandler');
 const User = require('./models/user.model');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const { USER_PASS_WRONG, SERVER_ERROR,
         USER_ALREDY_EXISTS, USER_NOT_FOUND
@@ -12,9 +13,12 @@ const login = async (email, password) => {
     if (user) {
       const match = await bcrypt.compare(password, user.password);
       if (match) {
-        // TODO: generate token
+        const payload = {
+          idUser: user._id
+        };
+        const token = jwt.sign(payload, "cAs1nHsmq=FvZo6qTsLj!30lsl77e6oJrFK1ndPz1q");
         return {
-          token: 'xxxxxxxxxyyyyyyzzzzz'
+          token
         }
       }
     }

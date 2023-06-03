@@ -3,8 +3,8 @@ const clothesService = require('./clothes.service');
 const add = async (req, res) => {
   try {
     const clotheData = req.body;
-    const userId = '6472130c6a35a253d293f230'; // TODO
-    const response = await clothesService.add(clotheData, userId);
+    const {idUser} = req.payload;
+    const response = await clothesService.add(clotheData, idUser);
     res.status(200).json(response);
   } catch (error) {
     res.status(error.status).json(error.response);
@@ -14,6 +14,7 @@ const add = async (req, res) => {
 const getAll = async (req, res) => {
   try {
     const filters = req.query;
+    if (req.payload?.idUser) filters.excludeSeller = req.payload.idUser;
     const response = await clothesService.getAll(filters);
     res.status(200).json(response);
   } catch (error) {
