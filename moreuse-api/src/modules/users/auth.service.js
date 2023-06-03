@@ -9,14 +9,14 @@ const { USER_PASS_WRONG, SERVER_ERROR,
 
 const login = async (email, password) => {
   try {
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email, isRemoved: false });
     if (user) {
       const match = await bcrypt.compare(password, user.password);
       if (match) {
         const payload = {
           idUser: user._id
         };
-        const token = jwt.sign(payload, "cAs1nHsmq=FvZo6qTsLj!30lsl77e6oJrFK1ndPz1q");
+        const token = jwt.sign(payload, process.env.JWT_SECRET);
         return {
           token
         }

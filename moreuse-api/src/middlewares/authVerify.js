@@ -7,7 +7,7 @@ const authVerify = (req, res, next) => {
     ) {
       const token = req.headers.authorization.split(" ")[1];
       try {
-        const decoded = jwt.verify(token, "cAs1nHsmq=FvZo6qTsLj!30lsl77e6oJrFK1ndPz1q");
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
         req.payload = decoded;
       } catch (error) {
         if (!req.authNotMandatory) {
