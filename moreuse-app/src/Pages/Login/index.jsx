@@ -5,13 +5,29 @@ import { Link } from 'react-router-dom';
 import { SignupContent } from './styles';
 import { useForm } from 'react-hook-form';
 import { emailExpRegular } from '../../Constants';
+import { httpRequest } from '../../Utils/HttpRequest';
+import { ALERT_ICON, Alert } from '../../Components/Alert/Alert';
 
 const Login = () => {
 
   const { register, handleSubmit, formState: { errors } } = useForm();
 
   const onSubmitLogin = (data) => {
-    console.log('data', data);
+    validateUserRequest(data);
+  }
+
+  const validateUserRequest = async (data) => {
+    try {
+      const response = await httpRequest ({
+        endpoint: '/auth/login',
+        body: data
+      });
+      console.log(response);
+      Alert({ icon: ALERT_ICON.SUCCESS, title: 'Bienvenido', text: 'Acceso valido' });
+    } catch (error) {
+      console.error(error);
+      Alert({ icon: ALERT_ICON.ERROR, title: 'Error', text: 'Credenciales invalidas' });
+    }
   }
 
   return (
@@ -20,17 +36,17 @@ const Login = () => {
         <form onSubmit={handleSubmit(onSubmitLogin)} noValidate>
           <FormControl>
             <label>Correo electrónico</label>
-            <input type='email' {...register("emailAddress",
+            <input type='email' {...register("email",
                 { required: true, pattern: emailExpRegular }
             )} />
-            { errors.emailAddress?.type === 'required' && <span>Campo requerido</span> }
-            { errors.emailAddress?.type === 'pattern' && <span>Debes ingresar un correo válido</span> }
+            { errors.email?.type === 'required' && <span>Campo requerido</span> }
+            { errors.email?.type === 'pattern' && <span>Debes ingresar un correo válido</span> }
           </FormControl>
           <FormControl>
             <label>Contraseña</label>
-            <input type='password' {...register("password", {required: true, minLength: 8})} />
+            <input type='password' {...register("password", {required: true, minLength: 6})} />
             { errors.password?.type === 'required' && <span>Campo requerido</span> }
-            { errors.password?.type === 'minLength' && <span>Mínimo 8 caracteres</span> }
+            { errors.password?.type === 'minLength' && <span>Mínimo 6 caracteres</span> }
           </FormControl>
           <Button type="submit" text="Ingresar" />
         </form>
