@@ -1,16 +1,19 @@
 import { Page } from '../../Components/Page';
 import { Button } from '../../Components/Button';
 import { FormContainer, FormControl } from '../../globalStyles';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { SignupContent } from './styles';
 import { useForm } from 'react-hook-form';
 import { emailExpRegular } from '../../Constants';
 import { httpRequest } from '../../Utils/HttpRequest';
 import { ALERT_ICON, Alert } from '../../Components/Alert/Alert';
+import { setToken } from '../../Utils/TokenLocalStorage';
 
 const Login = () => {
 
   const { register, handleSubmit, formState: { errors } } = useForm();
+
+  const navigate = useNavigate();
 
   const onSubmitLogin = (data) => {
     validateUserRequest(data);
@@ -23,7 +26,17 @@ const Login = () => {
         body: data
       });
       console.log(response);
-      Alert({ icon: ALERT_ICON.SUCCESS, title: 'Bienvenido', text: 'Acceso valido' });
+      const {token} = response.data;
+      setToken (token);
+      Alert({
+          icon: ALERT_ICON.SUCCESS,
+          title: 'Bienvenido',
+          text: 'Acceso valido',
+          callback: () => {
+            navigate('/');
+          }
+      });
+
     } catch (error) {
       console.error(error);
       Alert({ icon: ALERT_ICON.ERROR, title: 'Error', text: 'Credenciales invalidas' });
