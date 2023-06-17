@@ -1,5 +1,5 @@
-import React, {Suspense} from 'react';
-import {createBrowserRouter} from 'react-router-dom';
+import React, {Suspense, useEffect} from 'react';
+import {createBrowserRouter, useLocation} from 'react-router-dom';
 import { LazyLoading } from '../Components/LazyLoading';
 
 const Home = React.lazy(() => import('../Pages/Home') );
@@ -7,6 +7,7 @@ const WearDetail = React.lazy(() => import('../Pages/WearDetail') );
 const Profile = React.lazy(() => import('../Pages/Profile') );
 const MyClothes = React.lazy(() => import('../Pages/MyClothes') );
 const AddClothing = React.lazy(() => import('../Pages/AddClothing') );
+const Logout = React.lazy(() => import('../Pages/Logout') );
 const Login = React.lazy(() => import('../Pages/Login').then((module) => {
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -37,6 +38,14 @@ export const router = createBrowserRouter([
     element: (
       <Suspense fallback={<LazyLoading />}>
         <Login />
+      </Suspense>
+    )
+  },
+  {
+    path: "/logout",
+    element: (
+      <Suspense fallback={<LazyLoading />}>
+        <Logout />
       </Suspense>
     )
   },

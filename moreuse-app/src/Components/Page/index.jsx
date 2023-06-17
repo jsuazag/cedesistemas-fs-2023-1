@@ -4,15 +4,18 @@ import { Topbar } from "../Topbar"
 import { PageContainer, PageTitleContainer } from "./styles"
 import { useContext, useEffect } from "react"
 import { MenuContext } from "../../Contexts/MenuContext"
+import { UserContext } from "../../Contexts/UserContext"
 
 export const Page = (props) => {
 
   //const location = useLocation();
   const { onCloseMenu } = useContext(MenuContext);
+  const { validateSession } = useContext(UserContext);
 
   useEffect (() => {
     // única vez al inicio del componente
     hideMenu();
+    validateSession();
   }, []);
 
   const hideMenu = () => {
